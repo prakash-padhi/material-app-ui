@@ -3,12 +3,13 @@ import React from 'react';
 const AuthContext = React.createContext({});
 
 export function AuthContextProvider({ children }) {
+    const apiUrl = process.env.REACT_APP_API_BASE_URL;
     const [isLoading, setIsLoading] = React.useState(true);
     const [user, setUser] = React.useState(null);
 
     React.useEffect(() => {
         const getAuthStatus = () => {
-            fetch('http://localhost:8080/api/auth-status', {
+            fetch(`${apiUrl}/api/auth-status`, {
               method: 'GET',
               credentials: 'include',
               headers: { 'Content-Type': 'application/json' }
@@ -26,7 +27,7 @@ export function AuthContextProvider({ children }) {
     }, []);
 
     const signin = ({ username, password }, callback) => {
-        fetch("http://localhost:8080/api/login", {
+        fetch(`${apiUrl}/api/login`, {
             method: "POST",
             body: JSON.stringify({ username, password }),
             credentials: "include",
@@ -42,7 +43,7 @@ export function AuthContextProvider({ children }) {
     };
 
     const signup = ({ username, password }, callback) => {
-        fetch("http://localhost:8080/api/register", {
+        fetch(`${apiUrl}/api/register`, {
             method: "POST",
             body: JSON.stringify({ username, password }),
             headers: { 'Content-type': 'application/json' }
@@ -53,7 +54,7 @@ export function AuthContextProvider({ children }) {
 
     const signout = () => {
         setIsLoading(true);
-        fetch("http://localhost:8080/api/logout", {
+        fetch(`${apiUrl}/api/logout`, {
             method: "POST",
             credentials: "include",
             headers: { 'Content-type': 'application/json' }
@@ -67,7 +68,7 @@ export function AuthContextProvider({ children }) {
     };
 
     const updateUserColor = (color) => {
-        fetch("http://localhost:8080/api/update-color", {
+        fetch(`${apiUrl}/api/update-color`, {
             method: 'PATCH',
             credentials: "include",
             body: JSON.stringify({ color }),
