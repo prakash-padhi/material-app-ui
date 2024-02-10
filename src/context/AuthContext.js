@@ -24,7 +24,7 @@ export function AuthContextProvider({ children }) {
             });
         }
         getAuthStatus();
-    }, []);
+    }, [apiUrl]);
 
     const signin = ({ username, password }, callback) => {
         fetch(`${apiUrl}/api/login`, {
