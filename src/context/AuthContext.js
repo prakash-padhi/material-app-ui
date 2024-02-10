@@ -55,7 +55,7 @@ export function AuthContextProvider({ children }) {
     const signout = () => {
         setIsLoading(true);
         fetch(`${apiUrl}/api/logout`, {
-            method: "POST",
+            method: "GET",
             credentials: "include",
             headers: { 'Content-type': 'application/json' }
         }).then((response) => response.json()).then((response) => {
